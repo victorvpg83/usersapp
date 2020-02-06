@@ -8,6 +8,9 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const cors = require('cors')
+
+// require('./configs/middlewares.config')(app)
 
 
 mongoose
@@ -24,11 +27,24 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
+// CORS CONFIG
+const whitelist = ['http://localhost:3000']
+const corsOptions = {
+    origin: (origin, cb) => {
+        const originIsWhitelisted = whitelist.includes(origin)
+        cb(null, originIsWhitelisted)
+    },
+    credentials: true        // RUTAS PERSISTENTES
+}
 // Middleware Setup
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors(corsOptions))
+
+
+
 
 // Express View engine setup
 
@@ -53,6 +69,7 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 const index = require('./routes/index');
 app.use('/', index);
+app.use('/api/server', require('./routes/user.routes'))
 
 
 module.exports = app;
