@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Container, Row, Col } from 'react-bootstrap'
 
 import Service from '../service/User_service'
 
@@ -39,18 +39,27 @@ class UserFormAdd extends Component {
     render() {
         console.log(this.props)
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group>
-                    <Form.Label>Nombre</Form.Label>
-                    <Form.Control type="text" name="name" onChange={this.handleInputChange} value={this.state.user.name} />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Birthdate</Form.Label>
-                    <Form.Control type="date" name="birthdate" onChange={this.handleInputChange} value={this.state.user.birthdate} />
-                </Form.Group>
+        <Container>
+            <Row>
+                <Col md={3}></Col>
+                <Col md={6}>
+                    <h1 className='h1Form' >Crear nuevo usuario</h1>
+                    <Form onSubmit={this.handleSubmit}>
+                        <Form.Group>
+                            <Form.Label><strong>Nombre</strong></Form.Label>
+                            <Form.Control type="text" name="name" onChange={this.handleInputChange} value={this.state.user.name} />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label><strong>Birthdate</strong></Form.Label>
+                            <Form.Control type="date" name="birthdate" onChange={this.handleInputChange} value={this.state.user.birthdate} />
+                        </Form.Group>
 
-                <Button variant="dark" size="sm" type="submit" disabled={this.state.disabledButton}>Crear usuario</Button>
-            </Form>
+                        <Button variant="dark" size="sm" type="submit" disabled={this.state.disabledButton}>Crear usuario</Button>
+                    </Form>
+                </Col>
+                <Col md={3}></Col>
+            </Row>
+        </Container>
         )
     }
 }

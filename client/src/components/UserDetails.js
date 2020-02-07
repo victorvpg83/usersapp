@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Service from '../service/User_service'
 import { Container, Row, Col, Modal, Button} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import UserEdit from './UserEdit'
 
 
@@ -46,20 +45,30 @@ class UserDetails extends Component {
         console.log(this.state.user)
     return (
         <>
-        <Col className="user-card" md={8}>
+          <Container>
+            <Row>
+              <Col>
+              <h1 className='h1Form'>Detalles de usuario</h1>
+              </Col>
+            </Row>        
+            <Row>
+              <Col md={3}></Col>
+              <Col className="userDetails" md={6}>
 
-            <h3>Nombre: {this.state.user.name}</h3>
-            <p>Birthdate: {this.state.user.birthdate}</p>
-            <p>Id: {this.state.user._id}</p>
-            <br></br>
-            {/* <Link className="btn btn-sm btn-dark" to={`/edit`} >Editar</Link> */}
-            <button className="btn btn-sm btn-dark" onClick={this.state.user? ()=>this.deleteUser(this.state.user._id): null} >Eliminar</button>
-            <Button className="btn btn-sm btn-dark" variant="dark" onClick={this.handleShow}>Editar</Button>
-        </Col >
+                  <h3><strong>Nombre:</strong> {this.state.user.name}</h3>
+                  <p><strong>Birthdate:</strong> {this.state.user.birthdate}</p>
+                  <p><strong>Id:</strong> {this.state.user._id}</p>
+                  <br></br>
+                  <Button className="btn btn-sm btn-dark btnDet" variant="dark" onClick={this.handleShow}>Editar</Button>
+                  <Button className="btn btn-sm btn-danger" onClick={this.state.user? ()=>this.deleteUser(this.state.user._id): null} >Eliminar</Button>
+              </Col >
+              <Col md={3}></Col>
+            </Row>
+          </Container>
 
         <Modal show={this.state.showModalWindow} onHide={this.handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Editar evento</Modal.Title>
+          <Modal.Title>Editar usuario</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <UserEdit

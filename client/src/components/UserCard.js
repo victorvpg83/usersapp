@@ -4,7 +4,7 @@ import Service from '../service/User_service'
 import { Link } from 'react-router-dom'
 
 
-const UserCard = ({ _id, name, birthdate, history, updateUsersList }) => {
+const UserCard = ({ _id, name, birthdate, updateUsersList }) => {
     
     const deleteUser = (_id) => {
       const service = new Service()
@@ -13,16 +13,14 @@ const UserCard = ({ _id, name, birthdate, history, updateUsersList }) => {
     }
 
     return (
-        <Col className="user-card" md={4}>
-            <p>Nombre: {name}</p>
-            <p>Birthdate: {birthdate}</p>
-       
-            < Link to={`/users/${_id}`} className = "btn btn-sm btn-dark" > Detalles </Link>
-            <button className="btn btn-sm btn-dark" onClick = {()=>{deleteUser(_id)}}>Eliminar</button>
+        <Col className="userCard" md={3}>
+            <p><strong>Nombre:</strong> {name}</p>
+            <p><strong>Birthdate:</strong> {birthdate}</p>   
+            < Link to={`/users/${_id}`} className = "btn btn-sm btn-primary btnDet" > Detalles </Link>
+            <button className="btn btn-sm btn-danger" onClick = {()=>{deleteUser(_id)}}>Eliminar</button>
         </Col >
     )
 }
 
-// 
 
 export default UserCard
