@@ -37,6 +37,7 @@ class UserFormAdd extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group>

@@ -26,7 +26,21 @@ class UserDetails extends Component {
             .catch(err => console.log(err))
     }
 
+    userUpdate= () =>{
+        const userId = this.props.match.params.id
+        this._service.getOneUser(userId)
+            .then(theUser => this.setState({ user: theUser.data }))
+            .catch(err => console.log(err))
+    }
 
+    deleteUser = (_id) => {
+          this._service.deleteUser(_id)
+          .then(x => { 
+            this.props.updateUsersList()
+            this.props.history.push('/')
+        })
+          .catch(err => console.log(err, "Error borrando user"))
+      }
 
     render() {
         console.log(this.state.user)
@@ -39,8 +53,8 @@ class UserDetails extends Component {
             <p>Id: {this.state.user._id}</p>
             <br></br>
             {/* <Link className="btn btn-sm btn-dark" to={`/edit`} >Editar</Link> */}
-            <button className="btn btn-sm btn-dark" >Eliminar</button>
-            <Button className="button-card" variant="dark" onClick={this.handleShow}>Editar</Button>
+            <button className="btn btn-sm btn-dark" onClick={this.state.user? ()=>this.deleteUser(this.state.user._id): null} >Eliminar</button>
+            <Button className="btn btn-sm btn-dark" variant="dark" onClick={this.handleShow}>Editar</Button>
         </Col >
 
         <Modal show={this.state.showModalWindow} onHide={this.handleClose}>
@@ -49,9 +63,11 @@ class UserDetails extends Component {
         </Modal.Header>
         <Modal.Body>
           <UserEdit
-            user={this.props}
+            {...this.props}
+            user={this.state.user}
             updateUsersList={this.props.updateUsersList}
             closeModalWindow={this.handleClose}
+            userUpdate={this.userUpdate}
           />
         </Modal.Body>
         </Modal>

@@ -2,48 +2,38 @@ import React from 'react'
 import Service from '../service/User_service'
 import { Container, Row, Button, Modal, Col } from 'react-bootstrap'
 import UserCard from './UserCard'
+import UserFormAdd from './UserFormAdd'
+import { Link } from 'react-router-dom'
 
 
 class UserList extends React.Component {
 
     constructor(props) {
         super(props)
-        this._service = new Service()
-        this.state = {
-            withCredentials: true,
-            users: [],
 
-        }
     }
 
-    componentDidMount = () => this.updateUsersList()
-
-    updateUsersList = () => {
-        this._service.getAllUsers()
-            .then(allUsersFromDB => this.setState({ users: allUsersFromDB.data }))
-            .catch(err => console.log("Error", err))
-    }
-
+    componentDidMount = () => this.props.updateUsersList()
 
     render() {
+        console.log(this.props)
         return (
 
 
             <section>
 
                 <Container>
-
                     <Row>
                         <Col md={8}>
                     <h1>Listado de Usuarios</h1>
                         </Col>
                         <Col md={4}>
-                     <Button variant="dark" onClick={this.handleShow}>Nuevo Usuario</Button>
+                     < Link to={`/new`} target={'_blank'} className = "btn btn-sm btn-dark" > Nuevo Usuario </Link>
                         </Col>
                     </Row>
 
                     <Row>
-                        {this.state.users.map(users => <UserCard key={users._id} {...users} history={this.props.history} />)}
+                        {this.props.users.map(users => <UserCard key={users._id} {...users} history={this.props.history} updateUsersList={this.props.updateUsersList} />)}
                     </Row>
                 </Container>
 

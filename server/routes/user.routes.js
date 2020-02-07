@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require ('../models/User.model')
 
 router.get('/delete/:id', (req, res) => {
+  console.log(req.params, "------------------------------------------------\n")
     User.findByIdAndDelete(req.params.id)
       .then((deleteUser) => res.json(deleteUser))
       .catch(err => console.log(err))
@@ -32,7 +33,8 @@ router.post('/new', (req,res) =>{
 
 
   router.post("/edit", (req, res) => {
-    const {name,birthdate} = req.body.user;
+    const {name,birthdate, _id} = req.body.user;
+    console.log(req.body)
     User.findByIdAndUpdate(req.body.id, { name,birthdate }, { new: true })
       .then(theUpdateUser => res.json(theUpdateUser))
       .catch(err => console.log("error!!", err));

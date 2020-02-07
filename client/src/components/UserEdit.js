@@ -14,12 +14,14 @@ class UserEdit extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    console.log(this.props.match.params.id)
     this.service
       .editUser(this.state, this.props.user._id)
       .then(theEditedEvent => {
         
         this.props.updateUsersList(this.state);
         this.props.closeModalWindow();
+        this.props.userUpdate()
       })
       .catch(err => console.log(err));
   };

@@ -4,12 +4,12 @@ import Service from '../service/User_service'
 import { Link } from 'react-router-dom'
 
 
-const UserCard = ({ _id, name, birthdate, history }) => {
+const UserCard = ({ _id, name, birthdate, history, updateUsersList }) => {
     
     const deleteUser = (_id) => {
       const service = new Service()
         service.deleteUser(_id)
-        .then(x => history.push("/"))
+        .then(x => updateUsersList())
     }
 
     return (

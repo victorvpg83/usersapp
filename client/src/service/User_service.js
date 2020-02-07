@@ -16,5 +16,7 @@ export default class Service {
         return this._service.get( `/delete/${id}`)
         .then(userDeleted => userDeleted)
     }
-    editUser = (user, id) => {return this._service.post('/edit', { user, id})}
+    editUser = (user, id) => {
+        console.log(id)
+        return this._service.post('/edit', { user, id})}
 }
